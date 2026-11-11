@@ -13,26 +13,117 @@ This documentation describes the source as of 11 November 2026. This documentati
 3. See [Asset sources](ASSET-SOURCES.md) before changing product imagery.
 4. Review [Verification history](artifacts/VERIFICATION.md) for earlier checks and visual QA limitations.
 
-## Run and verify
+## Run on another laptop
 
-Use Node.js 22 or later and npm. Install the locked dependencies from this directory.
+### 1. Install the prerequisites
 
-~~~powershell
+Install [Node.js](https://nodejs.org/) **22 LTS** (includes npm) and [Git](https://git-scm.com/downloads). Windows, macOS and Linux can run this project. Open a new terminal after installing, then check:
+
+```sh
+node --version
+npm --version
+git --version
+```
+
+No Python, database, backend server, API key or `.env` file is needed to run the current frontend. Python is only used by the optional catalogue preparation utility.
+
+### 2. Download and install
+
+```sh
+git clone https://github.com/tony19053000/demo.git
+cd demo
+npm ci
+```
+
+The repository root contains `package.json`; do not look for another `shopsense-marketplace` folder inside the clone. Alternatively, download the repository ZIP, extract it, open a terminal in the extracted folder containing `package.json`, and run `npm ci`. Internet access is required for the initial dependency install. Do not copy `node_modules` from another laptop.
+
+### 3. Start the website
+
+```sh
+npm run dev -- --port 5173 --strictPort
+```
+
+Keep this terminal running and open **http://127.0.0.1:5173/#/** in your browser. Stop the server with **Ctrl+C**. If the site is already running on that port, reuse it. If another application owns the port, use `--port 5174` and open the corresponding URL instead.
+
+For later updates to a Git clone:
+
+```sh
+git pull --ff-only
 npm ci
 npm run dev -- --port 5173 --strictPort
-~~~
+```
 
-First check whether the existing server at http://127.0.0.1:5173/ is already running. Reuse it when available.
+Commit or otherwise preserve your own local edits before pulling updates.
 
-~~~powershell
+### Local troubleshooting
+
+| Symptom | What to do |
+| --- | --- |
+| `npm` or `node` is not recognized | Install Node.js and reopen the terminal. |
+| PowerShell blocks `npm.ps1` | Use Command Prompt, or run `npm.cmd` instead of `npm` in the commands above. |
+| Cannot find `package.json` | Change into the cloned/extracted repository root. |
+| Connection refused | Start the dev server and keep its terminal open; check its printed URL. |
+| Port already in use | Reuse the existing ShopSense server or choose another port. |
+| Old account or empty bag on another laptop | Demo data belongs to that browser and origin; it is not synchronized. Register a new demo account there. |
+
+Use a demo password. Registration, saved addresses, wishlist, bag and order previews are browser-local. Switching from `127.0.0.1` to `localhost`, changing the port, or opening the deployed domain uses a different storage origin. There are no real payments or deliveries.
+
+## Verify the production frontend locally
+
+```sh
 npm test
 npm run build
 npm exec -- vite preview --host 127.0.0.1 --port 4173 --strictPort
-~~~
+```
 
-The build writes to dist/. Navigation uses HashRouter, for example http://127.0.0.1:5173/#/product/81. Static hosting therefore does not need rewrites for these hash routes. There is currently no backend URL configuration or API client. No production secrets belong in this frontend.
+Open **http://127.0.0.1:4173/#/**. `npm run build` creates `dist/`, including the compiled application and public assets. Do not open `dist/index.html` directly from the filesystem. The preview server is for local checking, not production hosting.
 
-The existing hosting identity is recorded in .openai/hosting.json. Preserve that identity. Building locally does not deploy the site.
+## Deploy the frontend
+
+The current application is a static frontend. Host it at the **root of an HTTPS domain**, such as `https://your-site.example/`. It requires no running Node server after building. Deployment does not add a backend or turn demo checkout into real payments.
+
+### Option A: Git-connected hosting (Vercel or Netlify)
+
+1. Sign in to your chosen hosting provider and import `tony19053000/demo` from GitHub.
+2. Select `main` as the production branch and the repository root as the project directory.
+3. Use the following build settings, reviewing any automatically detected values.
+4. Deploy, then open the provider's HTTPS URL and perform the checks below.
+
+| Setting | Value |
+| --- | --- |
+| Framework | Vite |
+| Root/base directory | Repository root (`.`); not `src` |
+| Node.js version | 22.x |
+| Install command | `npm ci` |
+| Build command | `npm run build` |
+| Output/publish directory | `dist` |
+| Environment variables | None required for the current frontend |
+
+With Git integration enabled, future pushes to the configured production branch can publish automatically. Review the provider's deployment settings before enabling this for an existing live site.
+
+### Option B: Upload a static build
+
+Run `npm ci`, `npm test`, and `npm run build` locally. Upload the **contents of `dist/`** to the static host's web root, preserving every asset folder and filename. The resulting web root must contain `index.html`, `assets/`, `products/`, and the other copied public assets. Enable HTTPS. Upload a new complete build after each source change; copying only the source files will not update a static deployment.
+
+### Routing and asset paths
+
+ShopSense uses `HashRouter`: product links look like `https://your-site.example/#/product/81`. Keep the `#` route format. These routes do not need a server-side SPA rewrite because the browser handles the fragment.
+
+**Subdirectory hosting is not configured.** Product images and several brand/artwork URLs start with `/`. A GitHub Pages project URL such as `https://tony19053000.github.io/demo/` will need an asset-path audit and Vite base-path configuration before use; changing only the Vite base setting will not fix all current absolute URLs. Use root-domain hosting for an unchanged frontend.
+
+There is currently no backend URL configuration or API client. When a backend is added, follow [Backend integration](docs/BACKEND-INTEGRATION.md). Never put private API keys or server secrets in frontend code or client-exposed environment variables.
+
+### After deployment
+
+- Open the homepage and confirm product images, logo, fonts and animations load.
+- Open a product URL directly and refresh it; test search, category filters and wishlist.
+- Register a demo account, add an address, and test bag/payment selection through the demo confirmation.
+- Check mobile layouts and the system reduced-motion setting.
+- Confirm the browser console and network panel show no failed asset requests.
+
+The existing Site identity remains in `.openai/hosting.json`. Preserve it when using that existing hosting workflow. This guide does not deploy or replace that Site.
+
+Deployment reference: [Vite static deployment guide](https://vite.dev/guide/static-deploy), including Vercel and Netlify instructions.
 
 ## Requirement checklist
 
