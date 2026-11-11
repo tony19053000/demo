@@ -1,0 +1,53 @@
+/* Each effect belongs to the content that changed. Page scrolling and focus stay native. */
+@keyframes shop-arrive {
+  from { opacity: .65; translate: 0 7px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes shop-photo {
+  from { opacity: .8; scale: .98; }
+  to { opacity: 1; scale: 1; }
+}
+@keyframes shop-select {
+  0% { scale: .9; }
+  60% { scale: 1.08; }
+  100% { scale: 1; }
+}
+@keyframes shop-filter-open {
+  from { translate: 0 16px; opacity: .9; }
+  to { translate: 0 0; opacity: 1; }
+}
+@keyframes shop-total {
+  from { color: var(--sense-rose); translate: 0 2px; }
+  to { translate: 0 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .shopping-pages :is(.collection-cover, .saved-heading, .detail-info, .saved-empty,
+    .empty, .account-heading, .account-card, .bag-item, .bag-summary, .address-form,
+    .review-order, .auth-form-panel, .help-page > h1, .help-cards) {
+    animation: shop-arrive 240ms cubic-bezier(.2,.7,.3,1);
+  }
+  .shopping-pages .product-grid .product-card {
+    animation: shop-arrive 220ms ease-out;
+  }
+  .shopping-pages :is(.product-visual .gallery, .device-image img, .collection-art img) {
+    animation: shop-photo 280ms ease-out;
+  }
+  .shopping-pages :is(.information-panel, .chips > button, .help-page details[open] > p) {
+    animation: shop-arrive 180ms ease-out;
+  }
+  .shopping-pages .filters.filter-open { animation: shop-filter-open 220ms ease-out; }
+  .shopping-pages .total dd { animation: shop-total 320ms ease-out; }
+  .shopping-pages :is(.wish-btn, .buy-buttons button)[aria-pressed="true"] svg {
+    animation: shop-select 220ms ease-out;
+  }
+  .shopping-pages :is(.primary, .saved-action, .sizes button, .purchase-quantity button) {
+    transition: background-color 160ms, color 160ms, scale 140ms ease-out;
+  }
+  .shopping-pages :is(.primary, .saved-action, .sizes button, .purchase-quantity button):active {
+    scale: .98;
+  }
+  .shopping-pages .help-page summary svg { transition: transform 180ms ease-out; }
+  .shopping-pages ~ .chat-panel .message { animation: shop-arrive 180ms ease-out; }
+  .shopping-pages ~ .toast { animation: shop-arrive 180ms ease-out; }
+}

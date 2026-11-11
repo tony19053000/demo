@@ -1,0 +1,36 @@
+.chat-panel.sense-dialog {
+  width:min(378px, calc(100vw - 24px)); height:auto; max-height:calc(100dvh - 102px);
+  background:#fffaf4; border:1px solid #cdbfb4; border-radius:18px; box-shadow:0 12px 44px #39291927;
+}
+.sense-dialog>header { flex:none; padding:14px 18px; background:#fffaf4; border-bottom:1px solid #e3d9ce; }
+.sense-dialog header small { color:#695b54; font-size:11px; margin-top:1px; }
+.sense-emblem { width:34px; height:34px; background:var(--sense-rose); mask:url('/brand-mark.svg') center/contain no-repeat; }
+.sense-dialog header button,.sense-dialog>form button { display:grid; place-items:center; width:40px; height:40px; border-radius:50%; }
+.sense-dialog header button:hover { background:#eee5db; }
+.sense-welcome { padding:20px 20px 8px; overflow:auto; min-height:0; }
+.sense-welcome h2 { color:var(--sense-ink); font-size:clamp(28px,5vw,36px); font-weight:500; line-height:1.03; letter-spacing:-.05em; margin:0 0 18px; }
+.sense-welcome h2 em { color:var(--sense-rose); font-family:Georgia,serif; font-weight:400; }
+.sense-picks { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.sense-picks button { display:grid; grid-template-rows:64px auto; align-items:center; padding:10px 12px; text-align:left; border-radius:9px; background:#e8e1d4; color:#302d2b; }
+.sense-picks button:nth-child(2) { background:#efdcd6; }
+.sense-picks img { height:62px; width:100%; object-fit:contain; mix-blend-mode:multiply; }
+.sense-picks span { display:flex; align-items:center; justify-content:space-between; gap:4px; font-size:13px; line-height:1.3; font-weight:600; margin-top:6px; }
+.sense-picks button:hover { box-shadow:inset 0 0 0 1px #a98578; }
+.sense-shortcuts { display:flex; gap:16px; flex-wrap:wrap; }
+.sense-shortcuts button { display:flex; align-items:center; gap:6px; padding:12px 0; min-height:42px; color:#674947; font-size:13px; }
+.sense-dialog>form { flex:none; align-items:center; padding:4px; margin:0 14px 14px; background:white; border:1px solid #c9b9af; border-radius:28px; }
+.sense-dialog>form:focus-within { border-color:var(--sense-rose); }
+.sense-dialog>form input { border-radius:24px; padding-left:12px; font-size:16px; }
+.sense-dialog>form button { flex:none; color:#fffaf4; background:var(--sense-rose); }
+.sense-dialog>form button:disabled { background:#e7ded6; color:#69584f; opacity:1; }
+.sense-dialog .chat-messages { flex:0 1 auto; height:330px; min-height:0; overscroll-behavior:contain; }
+.sense-dialog .message { font-size:14px; }
+.sense-dialog .chat-product { background:#fffdf9; }
+.sense-dialog .chat-product b { font-size:13px; }
+
+.sense-modes { display:flex; flex:none; gap:3px; padding:3px; margin:12px 18px 0; background:#eee7de; border-radius:24px; }
+.sense-modes button { flex:1; min-height:38px; border-radius:20px; font-size:13px; font-weight:600; color:#584b43; }
+.sense-modes button[aria-pressed="true"] { background:#fffaf4; color:#85394e; box-shadow:0 1px 4px #302d2b20; }
+.sense-topics { display:grid; }
+.sense-topics button { display:flex; align-items:center; justify-content:space-between; text-align:left; min-height:44px; color:#302d2b; border-top:1px solid #ded3c7; font-size:14px; }
+.sense-topics button:hover { color:var(--sense-rose); }

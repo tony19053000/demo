@@ -1,0 +1,20 @@
+.account-center { max-width:1100px; margin:clamp(12px,3vw,42px) auto; border-radius:14px; }
+.account-center .account-heading { justify-content:space-between; border-color:var(--line); }
+.account-center .account-heading h1 { font-size:clamp(32px,4vw,52px); font-weight:500; letter-spacing:-.05em; }
+.account-center h1 em { color:var(--pink); font-family:Georgia,serif; }
+.account-center .account-heading button,.account-center .account-tools button,.account-center .account-card a { color:var(--pink); }
+.account-center .account-layout nav { display:flex; flex-direction:column; gap:4px; }
+.account-center nav a { display:flex; gap:10px; align-items:center; min-height:44px; padding:10px 12px; border-radius:6px; font-size:14px; }
+.account-center nav [aria-current="page"] { background:#eedfd7; color:#743649; font-weight:700; }
+.account-center .account-card { min-width:0; background:#fffdf9; border-radius:12px; align-self:start; }
+.account-center .address-entry { padding:14px 0; border-top:1px solid var(--line); }
+.account-center .address-entry small { margin-left:12px; color:var(--pink); }
+.account-center .account-tools { display:flex; gap:14px; flex-wrap:wrap; }
+.account-center .account-tools button { padding:6px 0; }
+.account-center select,.checkout-page select { display:block; width:100%; max-width:400px; margin:8px 0 18px; padding:10px; border:1px solid #c7b9ac; border-radius:5px; background:white; color:#302d2b; }
+.account-center [role=status]:empty { display:none; }
+@media(max-width:760px){
+  .account-center .account-layout {display:block}
+  .account-center .account-layout nav { flex-direction:row; overflow-x:auto; padding-bottom:12px; }
+  .account-center nav a { white-space:nowrap; }
+}

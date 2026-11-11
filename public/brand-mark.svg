@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <style>
+    path { fill: #91445a }
+    @media (prefers-color-scheme: dark) { path { fill: #dfb3bb } }
+  </style>
+  <path id="s" d="M39 6H23C12.6 6 7 11.4 7 18.1c0 5.5 3.5 9.5 9.7 11.5l6.8-5.2-6-2.1c-2.7-.9-4.2-2.3-4.2-4.4 0-3.3 3.2-5.7 8.6-5.7h9.2L39 6Z"/>
+  <use href="#s" transform="rotate(180 24 24)"/>
+</svg>
